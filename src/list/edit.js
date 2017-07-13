@@ -31,21 +31,21 @@
   var cc = cardbox_card;
   var hist = [];
 
-  if(editMode) withRequest();
+  if (editMode) withRequest();
   else construct();
 
   function construct() {
     card_detail_wrapper.style.top = '100%';
     cc.style.background = '#000';
 
-    if(hideCards || iPad)
-      with(cardbox_area.style)
+    if (hideCards || iPad)
+      with (cardbox_area.style)
         position = 'fixed',
         top = left = 0,
         zIndex = 800,
         height = (innerHeight - 32) + 'px';
     else
-      with(cc.style)
+      with (cc.style)
         position = 'absolute',
         top = left = 0,
         zIndex = 800;
@@ -53,7 +53,7 @@
     [].forEach.call(
       cc.children,
       function(e) {
-        if(!(e.cq = e.children[3]) || !(e.n = +e.cq.innerHTML.match(/\d/)))
+        if (!(e.cq = e.children[3]) || !(e.n = +e.cq.innerHTML.match(/\d/)))
           e.style.display = 'none';
         e.dark = e.children[2];
 
@@ -91,6 +91,8 @@
     var httpRequest = new XMLHttpRequest();
 
     httpRequest.onload = function() {
+      var possessions = getPossessions();
+
       cc.innerHTML = cardData.map(
         function(e) {
           var n = getN(e);
@@ -113,7 +115,7 @@
     function getSortedMasterCard() {
       var array = [];
 
-      for(var i in masterCard) {
+      for (var i in masterCard) {
         array[i] = masterCard[i];
         editMode - 3 || masterCard[i].ver - 23 || masterCard[i].no > 35 || delete array[parseInt(masterCard[i].imgClass.slice(-3), 10)];
       }
@@ -126,9 +128,7 @@
     }
 
     function getN(e) {
-      var possessions = getPossessions();
-
-      switch(editMode) {
+      switch (editMode) {
         case 1:
           return possessions[e.id + foilConf];
         case 2:
@@ -142,7 +142,7 @@
       var obj = {};
       var userCardInfo = JSON.parse(httpRequest.responseText).userCardInfo;
 
-      for(var i in userCardInfo) obj[userCardInfo[i].id] = userCardInfo[i].cnt;
+      for (var i in userCardInfo) obj[userCardInfo[i].id] = userCardInfo[i].cnt;
 
       return obj;
     }
