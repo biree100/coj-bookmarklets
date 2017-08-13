@@ -127,10 +127,11 @@
 
     function getSortedMasterCard() {
       var array = [];
+      var spVer = masterCard[1063].ver;
 
       for (var i in masterCard) {
         array[i] = masterCard[i];
-        editMode - 3 || masterCard[i].ver - 23 || masterCard[i].no > 35 || delete array[parseInt(masterCard[i].imgClass.slice(-3), 10)];
+        editMode - 3 || masterCard[i].ver - spVer || masterCard[i].no > 35 || delete array[parseInt(masterCard[i].imgClass.slice(-3), 10)];
       }
 
       return array.sort(comp());
