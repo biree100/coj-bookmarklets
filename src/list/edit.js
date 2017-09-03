@@ -54,11 +54,13 @@
       position = 'fixed',
       top = left = 0,
       zIndex = 800,
-      height = (innerHeight - 32) + 'px';
+      height = (innerHeight - 32) + 'px',
+      WebkitTouchCallout = 'default';
     else with (cc.style)
       position = 'absolute',
       top = left = 0,
-      zIndex = 800;
+      zIndex = 800,
+      WebkitTouchCallout = 'default';
 
     [].forEach.call(
       cc.children,
@@ -76,14 +78,6 @@
         e.oncontextmenu = function() {
           this.cq.innerHTML = 'x' + (this.n = this.n - 1 || 9);
           return false;
-        };
-        var touchFlag = 0;
-        e.ontouchstart = function() {
-          touchFlag ? this.cq.innerHTML = 'x' + (this.n = this.n - 1 || 9)
-          : touchFlag = 1, setTimeout(
-            function() { tf = 0; },
-            300
-          );
         };
       }
     );
