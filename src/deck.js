@@ -1,17 +1,8 @@
 ﻿//
 // deck.js
 //
-// Set the argument Array as global;
-// ex) deckArgs = [0];
-//
-// deckArgs[0] -> forIE
-//   0: default
-//   1: for InternetExplorer
-//
 
 (function(D) {
-  var args = deckArgs || [];
-  var forIE = args[0] || 0;
   var dispPoints = confirm('DOB?');
 
   var foilImage = new Image();
@@ -87,7 +78,7 @@
 
     printJokers();
 
-    forIE ? outputIE() : output();
+    output();
 
     function printJokers() {
       var j1c, j2c, u1, u2;
@@ -113,7 +104,7 @@
       context.fillText(p_rank_point.innerHTML + '  ' + u1 + ' / ' + u2, 25, 361);
     }
 
-    function outputIE() {
+    function output() {
       var deckImage = new Image();
       with(deckImage.style)
         display = 'block',
@@ -126,14 +117,6 @@
       deckImage.onclick = function() {
         D.body.removeChild(this);
       };
-    }
-
-    function output() {
-      var anchor = D.createElement('a');
-      anchor.href = canvas.toDataURL();
-      anchor.download = 'deck';
-      D.body.appendChild(anchor);
-      anchor.click();
     }
   }
 })(document);
