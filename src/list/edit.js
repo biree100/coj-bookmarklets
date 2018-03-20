@@ -88,6 +88,8 @@
 
   function withRequest() {
     var foilConf = confirm('フォイル編集: [OK]\nノーマル編集: [キャンセル]') ? 1e4 : 0;
+    var prVer = masterCard[257].ver;
+    var spVer = masterCard[1063].ver;
     var cardData = getSortedMasterCard();
     var httpRequest = new XMLHttpRequest();
     httpRequest.open('GET', 'get_card_list_info', 0);
@@ -114,14 +116,13 @@
         && eval('color_' + card.color).checked
         && (card.species ? eval('species_' + card.species).checked : species_all.checked)
         && !((ignoreOld || !national_all.checked) && card.ver < 6)
-        && eval((card.ver < 6 ? 'national_' : 'ver_') + card.ver).checked
+        && (card.ver == prVer || card.ver == spVer || eval((card.ver < 6 ? 'national_' : 'ver_') + card.ver).checked)
         && eval('cost_' + Math.min(card.cost, 8)).checked
         && card.rarity > dropRarity;
     }
 
     function getSortedMasterCard() {
       var array = [];
-      var spVer = masterCard[1063].ver;
 
       for (var i in masterCard) {
         array[i] = masterCard[i];
