@@ -29,7 +29,7 @@
   var editMode = args[0] || 0;
   var hideCards = args[2] || 0;
   var iPad = args[3] || 0;
-  var sortType = args[4] || 0;
+  var sortType = {0: 0, 1: '2', 2: '5'}[args[4]] || p_card_sort_type.value;
 
   var cc = cardbox_card;
   var hist = [];
@@ -123,18 +123,20 @@
     }
 
     function comp() {
-      var byNumber, byCardType, byRarity;
-      return {
-        0: byNumber = function(a, b) {
-          return a.view_no.localeCompare(b.view_no);
-        },
-        1: byCardType = function(a, b) {
-          return Math.max(a.type, 2) - Math.max(b.type, 2) || a.color - b.color || byNumber(a, b);
-        },
-        2: byRarity = function(a, b) {
-          return b.rarity - a.rarity || byCardType(a, b);
-        }
-      }[sortType];
+      var byNumber = function(a, b) {
+        return a.view_no.localeCompare(b.view_no);
+  	  };
+      var byCardType = function(a, b) {
+        return Math.max(a.type, 2) - Math.max(b.type, 2) || a.color - b.color || byNumber(a, b);
+  	  };
+      var byRarity = function(a, b) {
+        return b.rarity - a.rarity || byCardType(a, b);
+  	  };
+      switch (sortType) {
+      	case '2': return byCardType;
+      	case '5': return byRarity;
+      	default: return byNumber;
+      }
     }
 
     function getN(e) {
