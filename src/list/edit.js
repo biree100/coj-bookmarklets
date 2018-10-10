@@ -115,8 +115,8 @@
       var array = [];
 
       for (var i in masterCard) {
-        array[i] = masterCard[i];
-        editMode - 3 || masterCard[i].ver - spVer || masterCard[i].no > 35 || delete array[parseInt(masterCard[i].imgClass.slice(-3), 10)];
+        var card = array[i] = masterCard[i];
+        !foilConf || editMode - 3 || card.ver - spVer || 35 < card.no && card.no < 53 || delete array[parseInt(card.imgClass.slice(-3), 10)];
       }
 
       return array.sort(comp());
