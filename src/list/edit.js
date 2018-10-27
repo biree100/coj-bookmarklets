@@ -125,17 +125,17 @@
     function comp() {
       var byNumber = function(a, b) {
         return a.view_no.localeCompare(b.view_no);
-  	  };
+      };
       var byCardType = function(a, b) {
         return Math.max(a.type, 2) - Math.max(b.type, 2) || a.color - b.color || byNumber(a, b);
-  	  };
+      };
       var byRarity = function(a, b) {
         return b.rarity - a.rarity || byCardType(a, b);
-  	  };
+      };
       switch (sortType) {
-      	case '2': return byCardType;
-      	case '5': return byRarity;
-      	default: return byNumber;
+        case '2': return byCardType;
+        case '5': return byRarity;
+        default: return byNumber;
       }
     }
 
